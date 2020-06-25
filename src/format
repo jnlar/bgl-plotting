@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: 1: handle excessive subshells 
+
 pull_clean_csv() {
 	# test should be safe as machine is read only by default 
 	if [[ $(ls /media/*/ACCU-CHEK 2> /dev/null | wc -l) == 9 ]]; then
@@ -51,10 +53,10 @@ final_format() {
 plot() {
 	if [[ $timeframe == 1 ]]; then 
 		exec ./scatter "$(find . -cmin 1 -name '*.txt')" \
-		 	"bgl-"$(date +"%x" | sed 's/\///g')"-weekly.pdf" 2> /dev/null
+		 	"bgl-"$(date +"%x" | sed 's/\///g')"-weekly.pdf" 2>/dev/null
 	elif [[ $timeframe == 2 ]]; then
 		exec ./scatter "$(find . -cmin 1 -name '*.txt')" \
-		 	"bgl-"$(date +"%x" | sed 's/\///g')"-monthly.pdf" 2> /dev/null
+		 	"bgl-"$(date +"%x" | sed 's/\///g')"-monthly.pdf" 2>/dev/null
 	fi
 }
 
